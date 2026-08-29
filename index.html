@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTA VI — Countdown to Leonida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,400;1,700&family=Oswald:wght@300;400;500&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #F2A03A;
+      --coral:   #E8547A;
+      --amber:   #FFD080;
+      --cream:   #FFF4E0;
+      --violet:  #4A2060;
+      --deep:    #160820;
+      --glass:   rgba(14, 4, 28, 0.52);
+      --glass-b: rgba(242, 160, 58, 0.28);
+      --glass-h: rgba(255, 244, 224, 0.07);
+    }
+
+    html { height: 100%; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(2.5rem, 6vh, 5rem) 1.5rem clamp(2rem, 5vh, 4rem);
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* ─── Background ─── */
+    .bg {
+      position: fixed;
+      inset: -8%;
+      background: url('gta-6-teaser-3440x1440-13559.png') center center / cover no-repeat;
+      animation: kenBurns 40s ease-in-out infinite alternate;
+      z-index: -4;
+      will-change: transform;
+    }
+
+    @keyframes kenBurns {
+      0%   { transform: scale(1.00) translate(0%,    0%); }
+      100% { transform: scale(1.07) translate(-1.5%, 1%); }
+    }
+
+    /* Vignette – top */
+    .ov-top {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 140% 55% at 50% -5%,
+        rgba(14, 4, 28, 0.50) 0%, transparent 70%);
+      z-index: -3;
+    }
+
+    /* Gradient – bottom half for legibility */
+    .ov-bottom {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 62%;
+      background: linear-gradient(
+        to top,
+        rgba(14, 4, 28, 0.96) 0%,
+        rgba(14, 4, 28, 0.80) 30%,
+        rgba(14, 4, 28, 0.40) 60%,
+        transparent 100%
+      );
+      z-index: -3;
+    }
+
+    /* Side vignettes */
+    .ov-sides {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(14,4,28,0.4) 0%, transparent 18%),
+        linear-gradient(to left,  rgba(14,4,28,0.4) 0%, transparent 18%);
+      z-index: -3;
+    }
+
+    /* Film grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      animation: grain 0.35s steps(1) infinite;
+    }
+
+    @keyframes grain {
+      0%  { background-position:   0px   0px; }
+      25% { background-position: -60px  40px; }
+      50% { background-position:  40px -60px; }
+      75% { background-position: -30px  80px; }
+    }
+
+    /* ─── TOP — Logo ─── */
+    .logo-block {
+      text-align: center;
+      animation: fadeDown 1.3s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .logo-img {
+      width: clamp(180px, 28vw, 320px);
+      height: auto;
+      mix-blend-mode: multiply;
+      display: block;
+      margin: 3rem auto 0;
+    }
+
+    /* ─── MIDDLE — decorative rule ─── */
+    .mid-rule {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      animation: fadeIn 2s ease both 0.9s;
+    }
+
+    .rule-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(242,160,58,0.5), transparent);
+    }
+
+    .rule-center {
+      font-size: 0.6rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: rgba(255,244,224,0.3);
+      white-space: nowrap;
+    }
+
+    /* ─── BOTTOM — Countdown block ─── */
+    .bottom-block {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .launch-label {
+      font-size: clamp(0.52rem, 1.1vw, 0.66rem);
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: rgba(255,244,224,0.28);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+      animation: fadeIn 2s ease both 1s;
+    }
+
+    /* Countdown row */
+    .countdown {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: clamp(0.5rem, 2vw, 1.6rem);
+      animation: fadeUp 1.3s cubic-bezier(0.22,1,0.36,1) both 0.55s;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    /* Frosted glass card */
+    .card {
+      position: relative;
+      width:  clamp(68px, 16vw, 116px);
+      height: clamp(76px, 18vw, 128px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      background: var(--glass);
+      border: 1px solid var(--glass-b);
+      backdrop-filter: blur(22px) saturate(1.6) brightness(1.05);
+      -webkit-backdrop-filter: blur(22px) saturate(1.6) brightness(1.05);
+      overflow: hidden;
+      box-shadow:
+        0 4px 32px rgba(14,4,28,0.6),
+        inset 0 1px 0 var(--glass-h);
+    }
+
+    /* Warm bottom ambient inside card */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(242,160,58,0.06), transparent);
+      pointer-events: none;
+    }
+
+    /* Scan-line accent */
+    .card .mid-line {
+      position: absolute;
+      left: 8%; right: 8%;
+      top: 50%;
+      height: 1px;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .num {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 7vw, 5.2rem);
+      line-height: 1;
+      color: var(--cream);
+      position: relative;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    .num.flip {
+      animation: numFlip 0.28s cubic-bezier(0.55,0,0.45,1) both;
+    }
+
+    @keyframes numFlip {
+      0%  { transform: translateY(0)    scaleY(1);     opacity: 1; }
+      40% { transform: translateY(3px)  scaleY(0.04);  opacity: 0.1; }
+      60% { transform: translateY(-3px) scaleY(0.04);  opacity: 0.1; }
+      100%{ transform: translateY(0)    scaleY(1);     opacity: 1; }
+    }
+
+    .unit-label {
+      font-size: clamp(0.48rem, 0.95vw, 0.6rem);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,244,224,0.3);
+      font-weight: 300;
+    }
+
+    /* Colon separator */
+    .sep {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+      color: rgba(242,160,58,0.45);
+      align-self: center;
+      margin-bottom: clamp(1rem, 2.5vw, 2rem);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.45; }
+      50%       { opacity: 0.1; }
+    }
+
+    /* Progress */
+    .progress-wrap {
+      margin-top: 1.4rem;
+      width: clamp(200px, 48vw, 360px);
+      animation: fadeIn 2.5s ease both 1.5s;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,244,224,0.2);
+      margin-bottom: 0.45rem;
+    }
+
+    .bar-track {
+      height: 2px;
+      background: rgba(255,244,224,0.07);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--coral), var(--gold), var(--amber));
+      border-radius: 1px;
+      transition: width 1s linear;
+    }
+
+    /* Launched state */
+    .launched-msg {
+      display: none;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 5vw, 3.5rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 480px) {
+      .sep { display: none; }
+      .countdown { gap: 0.45rem; flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="bg"></div>
+  <div class="ov-top"></div>
+  <div class="ov-bottom"></div>
+  <div class="ov-sides"></div>
+  <div class="grain"></div>
+
+  <!-- TOP: Logo -->
+  <div class="logo-block">
+    <img class="logo-img" src="Grand_Theft_Auto_VI_logo_(with_gradient).svg%20(1).png" alt="Grand Theft Auto VI" />
+  </div>
+
+  <!-- MIDDLE: Decorative rule -->
+  <div class="mid-rule">
+    <div class="rule-line"></div>
+    <div class="rule-center">Countdown to Launch</div>
+    <div class="rule-line"></div>
+  </div>
+
+  <!-- BOTTOM: Countdown + meta -->
+  <div class="bottom-block">
+    <div class="launch-label">Releasing In</div>
+
+    <div class="countdown" id="countdown">
+      <div class="unit">
+        <div class="card">
+          <div class="mid-line"></div>
+          <span class="num" id="days">0</span>
+        </div>
+        <div class="unit-label">Days</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="card">
+          <div class="mid-line"></div>
+          <span class="num" id="hours">0</span>
+        </div>
+        <div class="unit-label">Hours</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="card">
+          <div class="mid-line"></div>
+          <span class="num" id="minutes">0</span>
+        </div>
+        <div class="unit-label">Minutes</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="card">
+          <div class="mid-line"></div>
+          <span class="num" id="seconds">0</span>
+        </div>
+        <div class="unit-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="launched-msg" id="launched">Grand Theft Auto VI &nbsp;—&nbsp; Now Available</div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-meta">
+        <span>First Trailer · Dec 2023</span>
+        <span id="pct">—</span>
+        <span>Launch Day</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" id="barFill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TARGET = new Date('2026-11-19T00:00:00+01:00').getTime();
+    const ORIGIN = new Date('2023-12-04T00:00:00').getTime();
+    const SPAN   = TARGET - ORIGIN;
+
+    const $ = id => document.getElementById(id);
+
+    const prevVals = {};
+
+    function setNum(el, val) {
+      if (prevVals[el.id] === val) return;
+      prevVals[el.id] = val;
+      el.classList.remove('flip');
+      void el.offsetWidth;
+      el.textContent = val;
+      el.classList.add('flip');
+    }
+
+    function tick() {
+      const now  = Date.now();
+      const diff = TARGET - now;
+
+      if (diff <= 0) {
+        $('countdown').style.display    = 'none';
+        $('progressWrap').style.display = 'none';
+        $('launched').style.display     = 'block';
+        return;
+      }
+
+      setNum($('days'),    String(Math.floor(diff / 86400000)));
+      setNum($('hours'),   String(Math.floor((diff % 86400000) / 3600000)));
+      setNum($('minutes'), String(Math.floor((diff % 3600000)  / 60000)));
+      setNum($('seconds'), String(Math.floor((diff % 60000)    / 1000)));
+
+      const pct = Math.min(100, ((now - ORIGIN) / SPAN) * 100);
+      $('barFill').style.width = pct.toFixed(2) + '%';
+      $('pct').textContent     = pct.toFixed(1) + '%';
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
