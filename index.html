@@ -593,10 +593,14 @@
     let muted = false;
     let volumeBeforeMute = MAX_VOL;
 
-    muteBtn.addEventListener('click', () => {
+    muteBtn.addEventListener('click', toggleMute);
+    muteBtn.addEventListener('touchend', (e) => { e.preventDefault(); toggleMute(); });
+
+    function toggleMute() {
       muted = !muted;
+      music.muted = muted;
       if (muted) {
-        volumeBeforeMute = music.volume;
+        volumeBeforeMute = music.volume || MAX_VOL;
         music.volume = 0;
         iconOn.style.display  = 'none';
         iconOff.style.display = 'block';
@@ -605,7 +609,7 @@
         iconOn.style.display  = 'block';
         iconOff.style.display = 'none';
       }
-    });
+    }
 
     // intro overlay → dismiss + start music
     const intro = document.getElementById('intro');
