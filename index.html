@@ -23,20 +23,25 @@
       --glass-h: rgba(255, 244, 224, 0.07);
     }
 
-    html { height: 100%; background: var(--deep); }
+    html {
+      height: 100%;
+      overflow: hidden;
+      background: var(--deep);
+    }
 
     body {
       font-family: 'Bebas Neue', sans-serif;
       color: var(--cream);
-      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: clamp(2.5rem, 6vh, 5rem) 1.5rem clamp(8rem, 18vh, 14rem);
-      overflow-x: hidden;
-      overflow-y: auto;
+      padding: clamp(2rem, 5vh, 4rem) 1.5rem clamp(3rem, 8vh, 6rem);
+      overflow: hidden;
       position: relative;
+      touch-action: none;
     }
 
     /* ─── Background ─── */
@@ -320,63 +325,52 @@
     /* ─── Mobile ─── */
     @media (max-width: 600px) {
       body {
-        padding: 2rem 1rem 2rem;
-        justify-content: space-evenly;
+        padding: clamp(1.5rem, 4vh, 3rem) 1rem clamp(1.5rem, 4vh, 3rem);
+        justify-content: space-between;
       }
 
       .logo-img {
-        width: clamp(110px, 42vw, 180px);
-        margin-top: 1rem;
-      }
-
-      .mid-rule {
-        max-width: 90vw;
-      }
-
-      .rule-center {
-        font-size: 0.55rem;
-        letter-spacing: 0.3em;
+        width: clamp(120px, 48vw, 200px);
+        margin-top: 0;
       }
 
       .launch-label {
-        font-size: 0.6rem;
+        font-size: clamp(0.6rem, 2.5vw, 0.8rem);
         letter-spacing: 0.4em;
-        margin-bottom: 1rem;
+        margin-bottom: 0.6rem;
       }
 
       .countdown {
-        gap: 0.5rem;
+        gap: clamp(0.3rem, 1.5vw, 0.6rem);
       }
 
       .sep { display: none; }
 
       .card {
-        width:  clamp(70px, 20vw, 88px);
-        height: clamp(78px, 22vw, 96px);
+        width:  clamp(62px, 18vw, 80px);
+        height: clamp(70px, 20vw, 88px);
       }
 
       .num {
-        font-size: clamp(2rem, 10vw, 2.8rem);
+        font-size: clamp(1.8rem, 9vw, 2.6rem);
       }
 
       .unit-label {
-        font-size: 0.5rem;
-        letter-spacing: 0.25em;
+        font-size: clamp(0.45rem, 1.8vw, 0.6rem);
+        letter-spacing: 0.2em;
       }
 
       .progress-wrap {
-        width: 88vw;
-        margin-top: 3rem;
+        width: 90vw;
+        margin-top: 0.8rem;
       }
 
       .progress-meta {
-        font-size: 0.5rem;
-        letter-spacing: 0.12em;
+        font-size: clamp(0.45rem, 1.8vw, 0.6rem);
+        letter-spacing: 0.1em;
       }
 
-      .ov-bottom {
-        height: 75%;
-      }
+      .ov-bottom { height: 75%; }
     }
   </style>
 </head>
@@ -546,6 +540,7 @@
     music.removeAttribute('loop'); // loop handled manually so fade works
     const FADE_IN  = 3;
     const FADE_OUT = 4;
+    const MAX_VOL  = 0.7;
     let fadeInTimer = null;
 
     function doFadeIn() {
@@ -556,7 +551,7 @@
       let step = 0;
       fadeInTimer = setInterval(() => {
         step++;
-        music.volume = step / steps;
+        music.volume = (step / steps) * MAX_VOL;
         if (step >= steps) clearInterval(fadeInTimer);
       }, stepTime);
     }
@@ -565,7 +560,7 @@
       if (!music.duration) return;
       const remaining = music.duration - music.currentTime;
       if (remaining <= FADE_OUT) {
-        music.volume = Math.max(0, remaining / FADE_OUT);
+        music.volume = Math.max(0, (remaining / FADE_OUT) * MAX_VOL);
       }
     });
 
