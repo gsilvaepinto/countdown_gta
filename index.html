@@ -25,14 +25,14 @@
     html { height: 100%; background: var(--deep); }
 
     body {
-      font-family: 'Raleway', sans-serif;
+      font-family: 'Bebas Neue', sans-serif;
       color: var(--cream);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: clamp(2.5rem, 6vh, 5rem) 1.5rem clamp(2rem, 5vh, 4rem);
+      padding: clamp(2.5rem, 6vh, 5rem) 1.5rem clamp(8rem, 18vh, 14rem);
       overflow-x: hidden;
       overflow-y: auto;
       position: relative;
@@ -42,16 +42,22 @@
     .bg {
       position: fixed;
       inset: -8%;
-      background: url('Jason_and_Lucia_Beach_landscape.0419q._86ukpt.avif') center center / cover no-repeat;
-      animation: kenBurns 40s ease-in-out infinite alternate;
-      opacity: 0.45;
+      background-size: cover;
+      background-position: center -55%;
+      background-repeat: no-repeat;
+      opacity: 0;
       z-index: -4;
-      will-change: transform;
+      transition: opacity 1.5s ease;
+      will-change: opacity;
+    }
+    .bg.active {
+      opacity: 0.45;
+      animation: bgZoom 20s ease-out forwards;
     }
 
-    @keyframes kenBurns {
-      0%   { transform: scale(1.00) translate(0%,    0%); }
-      100% { transform: scale(1.07) translate(-1.5%, 1%); }
+    @keyframes bgZoom {
+      from { transform: scale(1.0); }
+      to   { transform: scale(1.06); }
     }
 
     /* Vignette – top */
@@ -114,7 +120,7 @@
     }
 
     .logo-img {
-      width: clamp(150px, 22vw, 260px);
+      width: clamp(165px, 24vw, 285px);
       height: auto;
       mix-blend-mode: multiply;
       display: block;
@@ -156,7 +162,7 @@
     }
 
     .launch-label {
-      font-size: clamp(0.52rem, 1.1vw, 0.66rem);
+      font-size: clamp(0.75rem, 1.5vw, 1rem);
       letter-spacing: 0.55em;
       text-transform: uppercase;
       color: rgba(255,244,224,0.75);
@@ -184,14 +190,14 @@
     /* Frosted glass card */
     .card {
       position: relative;
-      width:  clamp(68px, 16vw, 116px);
-      height: clamp(76px, 18vw, 128px);
+      width:  clamp(60px, 13vw, 100px);
+      height: clamp(68px, 15vw, 112px);
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 4px;
       background: var(--glass);
-      border: 1px solid var(--glass-b);
+      border: 1px solid rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(22px) saturate(1.6) brightness(1.05);
       -webkit-backdrop-filter: blur(22px) saturate(1.6) brightness(1.05);
       overflow: hidden;
@@ -221,9 +227,9 @@
     }
 
     .num {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      font-size: clamp(2.2rem, 7vw, 5.2rem);
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1.9rem, 5.5vw, 4.2rem);
       line-height: 1;
       color: var(--cream);
       position: relative;
@@ -242,12 +248,11 @@
 
     /* Colon separator */
     .sep {
-      font-family: 'Oswald', sans-serif;
+      font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(1.6rem, 4.5vw, 3.2rem);
-      color: rgba(242,160,58,0.45);
+      color: rgba(255, 255, 255, 0.8);
       align-self: center;
       margin-bottom: clamp(1rem, 2.5vw, 2rem);
-      animation: blink 2s ease-in-out infinite;
     }
 
     @keyframes blink {
@@ -265,7 +270,7 @@
     .progress-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.56rem;
+      font-size: clamp(0.52rem, 0.9vw, 0.65rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(255,244,224,0.75);
@@ -281,7 +286,7 @@
 
     .bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--coral), var(--gold), var(--amber));
+      background: linear-gradient(90deg, #64759D, #826092, #E39986);
       border-radius: 1px;
       transition: width 1s linear;
     }
@@ -289,7 +294,7 @@
     /* Launched state */
     .launched-msg {
       display: none;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Bebas Neue', sans-serif;
       font-style: italic;
       font-size: clamp(1.6rem, 5vw, 3.5rem);
       font-weight: 400;
@@ -376,8 +381,22 @@
 </head>
 <body>
 
+  <audio id="bgMusic" src="official-main-theme-music.mp3"></audio>
+
+  <!-- Intro overlay -->
+  <div id="intro" style="
+    position:fixed; inset:0; z-index:999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:rgba(14,4,28,0.92);
+    cursor:pointer;
+    transition: opacity 1.2s ease;
+  ">
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:0.35em; color:rgba(255,244,224,0.85); text-transform:uppercase;">Welcome to Leonida</div>
+  </div>
+
   <!-- Background layers -->
-  <div class="bg"></div>
+  <div class="bg" id="bg-a"></div>
+  <div class="bg" id="bg-b"></div>
   <div class="ov-top"></div>
   <div class="ov-bottom"></div>
   <div class="ov-sides"></div>
@@ -386,13 +405,6 @@
   <!-- TOP: Logo -->
   <div class="logo-block">
     <img class="logo-img" src="logo.png" alt="Grand Theft Auto VI" />
-  </div>
-
-  <!-- MIDDLE: Decorative rule -->
-  <div class="mid-rule">
-    <div class="rule-line"></div>
-    <div class="rule-center">Countdown to Launch</div>
-    <div class="rule-line"></div>
   </div>
 
   <!-- BOTTOM: Countdown + meta -->
@@ -448,6 +460,48 @@
   </div>
 
   <script>
+    // ─── Wallpaper crossfade ───
+    const walls = [
+      'walls/wall3.jpg','walls/wall10.jpg','walls/wall1.jpeg',
+      'walls/wall6.jpg','walls/wall11.jpg','walls/wall4.jpg','walls/wall9.jpg',
+      'walls/wall2.jpg','walls/walll8.jpg','walls/wall5.jpg'
+    ];
+
+    const bgA = document.getElementById('bg-a');
+    const bgB = document.getElementById('bg-b');
+    let wallIndex = 0, current = bgA, next = bgB;
+
+    function getNext() {
+      const w = walls[wallIndex];
+      wallIndex = (wallIndex + 1) % walls.length;
+      return w;
+    }
+
+    function swapWall() {
+      const img = new Image();
+      img.src = getNext();
+      img.onload = () => {
+        next.style.backgroundImage = `url('${img.src}')`;
+
+        // freeze outgoing image at its current zoom so it doesn't snap back
+        current.style.transform = getComputedStyle(current).transform;
+        current.classList.remove('active');
+
+        next.classList.add('active');
+
+        // clean up frozen transform after fade-out completes
+        setTimeout(() => { current.style.transform = ''; }, 1600);
+
+        [current, next] = [next, current];
+      };
+    }
+
+    // initialise first wall immediately
+    bgA.style.backgroundImage = `url('${getNext()}')`;
+    bgA.classList.add('active');
+    setInterval(swapWall, 7000);
+
+    // ─── Countdown ───
     const TARGET = new Date('2026-11-19T00:00:00+01:00').getTime();
     const ORIGIN = new Date('2023-12-04T00:00:00').getTime();
     const SPAN   = TARGET - ORIGIN;
@@ -485,6 +539,53 @@
 
     tick();
     setInterval(tick, 1000);
+
+    // ─── Background music with fade in/out ───
+    const music = document.getElementById('bgMusic');
+    music.removeAttribute('loop'); // loop handled manually so fade works
+    const FADE_IN  = 3;
+    const FADE_OUT = 4;
+    let fadeInTimer = null;
+
+    function doFadeIn() {
+      music.volume = 0;
+      if (fadeInTimer) clearInterval(fadeInTimer);
+      const steps    = 60;
+      const stepTime = (FADE_IN * 1000) / steps;
+      let step = 0;
+      fadeInTimer = setInterval(() => {
+        step++;
+        music.volume = step / steps;
+        if (step >= steps) clearInterval(fadeInTimer);
+      }, stepTime);
+    }
+
+    music.addEventListener('timeupdate', () => {
+      if (!music.duration) return;
+      const remaining = music.duration - music.currentTime;
+      if (remaining <= FADE_OUT) {
+        music.volume = Math.max(0, remaining / FADE_OUT);
+      }
+    });
+
+    music.addEventListener('ended', () => {
+      music.currentTime = 0;
+      music.play();
+      doFadeIn();
+    });
+
+    function startMusic() {
+      music.play().then(doFadeIn).catch(() => {});
+    }
+
+    // intro overlay → dismiss + start music
+    const intro = document.getElementById('intro');
+    function dismissIntro() {
+      intro.style.opacity = '0';
+      setTimeout(() => intro.remove(), 1200);
+      startMusic();
+    }
+    intro.addEventListener('click', dismissIntro, { once: true });
   </script>
 </body>
 </html>
