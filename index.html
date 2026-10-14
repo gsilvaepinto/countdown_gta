@@ -35,12 +35,12 @@
       color: var(--cream);
       height: 100vh;
       height: 100dvh;
-      max-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding: clamp(2rem, 5vh, 4rem) 1.5rem clamp(10rem, 22vh, 16rem);
+      justify-content: center;
+      gap: 6rem;
+      padding: 20vh 1.5rem 0;
       overflow: hidden;
       position: relative;
       overscroll-behavior: none;
@@ -128,11 +128,11 @@
     }
 
     .logo-img {
-      width: clamp(165px, 24vw, 285px);
+      width: clamp(120px, 16vw, 200px);
       height: auto;
       mix-blend-mode: multiply;
       display: block;
-      margin: 1.5rem auto 0;
+      margin: 0 auto;
     }
 
     /* ─── MIDDLE — decorative rule ─── */
@@ -422,12 +422,7 @@
   <div class="ov-sides"></div>
   <div class="grain"></div>
 
-  <!-- TOP: Logo -->
-  <div class="logo-block">
-    <img class="logo-img" src="logo.png" alt="Grand Theft Auto VI" />
-  </div>
-
-  <!-- BOTTOM: Countdown + meta -->
+  <!-- CENTER: Countdown -->
   <div class="bottom-block">
     <div class="launch-label">Releasing In</div>
 
@@ -466,6 +461,11 @@
     </div>
 
     <div class="launched-msg" id="launched">Grand Theft Auto VI &nbsp;—&nbsp; Now Available</div>
+  </div>
+
+  <!-- BOTTOM: Logo -->
+  <div class="logo-block">
+    <img class="logo-img" src="logo.png" alt="Grand Theft Auto VI" />
   </div>
 
   <script>
