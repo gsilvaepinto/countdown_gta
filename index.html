@@ -26,6 +26,7 @@
     html {
       height: 100%;
       overflow: hidden;
+      overscroll-behavior: none;
       background: var(--deep);
     }
 
@@ -39,10 +40,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: clamp(2rem, 5vh, 4rem) 1.5rem clamp(3rem, 8vh, 6rem);
+      padding: clamp(2rem, 5vh, 4rem) 1.5rem clamp(10rem, 22vh, 16rem);
       overflow: hidden;
       position: relative;
-      touch-action: none;
+      overscroll-behavior: none;
     }
 
     /* ─── Background ─── */
@@ -465,17 +466,6 @@
     </div>
 
     <div class="launched-msg" id="launched">Grand Theft Auto VI &nbsp;—&nbsp; Now Available</div>
-
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-meta">
-        <span>First Trailer · Dec 2023</span>
-        <span id="pct">—</span>
-        <span>Launch Day</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" id="barFill" style="width:0%"></div>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -540,9 +530,8 @@
       const diff = TARGET - now;
 
       if (diff <= 0) {
-        $('countdown').style.display    = 'none';
-        $('progressWrap').style.display = 'none';
-        $('launched').style.display     = 'block';
+        $('countdown').style.display = 'none';
+        $('launched').style.display  = 'block';
         return;
       }
 
@@ -551,9 +540,6 @@
       setNum($('minutes'), String(Math.floor((diff % 3600000)  / 60000)));
       setNum($('seconds'), String(Math.floor((diff % 60000)    / 1000)));
 
-      const pct = Math.min(100, ((now - ORIGIN) / SPAN) * 100);
-      $('barFill').style.width = pct.toFixed(2) + '%';
-      $('pct').textContent     = pct.toFixed(1) + '%';
     }
 
     tick();
